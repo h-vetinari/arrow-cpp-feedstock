@@ -1,0 +1,42 @@
+From b6b2f87b75e5c69d216e2471ce5ad408fd225d7a Mon Sep 17 00:00:00 2001
+From: "H. Vetinari" <h.vetinari@gmx.com>
+Date: Mon, 5 Dec 2022 15:59:27 +1100
+Subject: [PATCH 2/2] avoid patching by moving relevant assertion into
+ gcs_server fixture
+
+---
+ python/pyarrow/tests/conftest.py | 4 +++-
+ python/pyarrow/tests/test_fs.py  | 2 --
+ 2 files changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/python/pyarrow/tests/conftest.py b/python/pyarrow/tests/conftest.py
+index a06ac9209..5d36a9e43 100644
+--- a/python/pyarrow/tests/conftest.py
++++ b/python/pyarrow/tests/conftest.py
+@@ -184,7 +184,9 @@ def gcs_server():
+     proc = None
+     try:
+         proc = subprocess.Popen(args, env=env)
+-    except OSError as e:
++        # Make sure the server is alive.
++        assert proc.poll() is None
++    except (AssertionError, OSError) as e:
+         pytest.skip(f"Command {args} failed to execute: {e}")
+     else:
+         yield {
+diff --git a/python/pyarrow/tests/test_fs.py b/python/pyarrow/tests/test_fs.py
+index 945114454..12d0c7ee6 100644
+--- a/python/pyarrow/tests/test_fs.py
++++ b/python/pyarrow/tests/test_fs.py
+@@ -207,8 +207,6 @@ def gcsfs(request, gcs_server):
+ 
+     host, port = gcs_server['connection']
+     bucket = 'pyarrow-filesystem/'
+-    # Make sure the server is alive.
+-    assert gcs_server['process'].poll() is None
+ 
+     fs = GcsFileSystem(
+         endpoint_override=f'{host}:{port}',
+-- 
+2.38.1.windows.1
+
