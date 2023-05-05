@@ -186,15 +186,13 @@ outputs:
         - aws-sdk-cpp
         - brotli
         - bzip2
-        # not yet: https://github.com/conda-forge/cpp-opentelemetry-sdk-feedstock/issues/38
-        # - cpp-opentelemetry-sdk
-        # - proto-opentelemetry-proto =={{ cpp_opentelemetry_sdk }}
         - gflags
         - glog
         - google-cloud-cpp
         # arrow uses a customized jemalloc, see #944
         # - jemalloc
         - libabseil
+        - libopentelemetry-cpp
         - libutf8proc
         - lz4-c
         - openssl    # [win]
