@@ -111,4 +111,8 @@ cmake -GNinja \
 # Do not install arrow, only build.
 cmake --build . --config Release
 
+if [[ "$CONDA_BUILD_CROSS_COMPILATION" != 1 ]]; then
+    ctest --progress --output-on-failure
+fi
+
 popd

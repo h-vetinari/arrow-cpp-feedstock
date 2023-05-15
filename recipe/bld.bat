@@ -65,4 +65,7 @@ if %ERRORLEVEL% neq 0 exit 1
 cmake --build . --config Release
 if %ERRORLEVEL% neq 0 exit 1
 
+ctest --progress --output-on-failure
+if %ERRORLEVEL% neq 0 exit 1
+
 popd
