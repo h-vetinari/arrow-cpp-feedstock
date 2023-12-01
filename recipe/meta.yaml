@@ -24,6 +24,7 @@ source:
       # workaround for https://github.com/apache/arrow/issues/37692
       - patches/0002-fixture-teardown-should-not-fail-test.patch
       - patches/0003-set-ARROW_EXPORT-for-arrow-internal-tracing-Re-Un-wr.patch
+      - patches/0004-don-t-override-opentelemetry-cpp_SOURCE-to-ignore-AR.patch
   # testing-submodule not part of release tarball
   - git_url: https://github.com/apache/arrow-testing.git
     git_rev: 47f7b56b25683202c1fd957668e13f2abafc0f12
