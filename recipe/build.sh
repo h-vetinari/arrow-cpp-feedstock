@@ -106,6 +106,7 @@ cmake -GNinja \
     -DLLVM_TOOLS_BINARY_DIR=$PREFIX/bin \
     -DPARQUET_REQUIRE_ENCRYPTION=ON \
     -DPython3_EXECUTABLE=${PYTHON} \
+    -Dopentelemetry-cpp_DIR=$PREFIX/lib/cmake/opentelemetry-cpp \
     ${EXTRA_CMAKE_ARGS} \
     ..
 
